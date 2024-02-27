@@ -41,4 +41,4 @@ for x in range(1, nr_numbers + 1):
 
 random.shuffle(password)
 
-print(f'Your hard level password is {''.join(password)}')
+print(f'Your hard level password is {"".join(password)}')
