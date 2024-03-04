@@ -23,9 +23,8 @@ used_letters = []
 
 while not end_of_game:
 
-
     guess = input("Guess a letter: ").lower()
-    os.system('clear')
+    os.system('cls')
 
     if guess in used_letters:
         print("You have already guessed the letter: " + guess)
