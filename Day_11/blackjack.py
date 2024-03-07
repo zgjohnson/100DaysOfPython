@@ -1,13 +1,14 @@
 # ############## Blackjack Project #####################
 import random
 
+from blackjack_art import logo
+
+
 # Difficulty Normal 😎: Use all Hints below to complete the project.
 # Difficulty Hard 🤔: Use only Hints 1, 2, 3 to complete the project.
 # Difficulty Extra Hard 😭: Only use Hints 1 & 2 to complete the project.
 # Difficulty Expert 🤯: Only use Hint 1 to complete the project.
-
 # ############## Our Blackjack House Rules #####################
-
 # The deck is unlimited in size.
 # There are no jokers.
 # The Jack/Queen/King all count as 10.
@@ -17,15 +18,11 @@ import random
 # The cards in the list have equal probability of being drawn.
 # Cards are not removed from the deck as they are drawn.
 # The computer is the dealer.
-
 # #################### Hints #####################
-
 # Hint 1: Go to this website and try out the Blackjack game:
 #   https://games.washingtonpost.com/games/blackjack/
 # Then try out the completed Blackjack project here:
 #   http://blackjack-final.appbrewery.repl.run
-
-from blackjack_art import logo
 
 
 def get_random_card():
@@ -33,26 +30,47 @@ def get_random_card():
     return cards[random.randint(0, len(cards) - 1)]
 
 
-def draw_cards(number_of_cards, person):
+def draw_cards(person, number_of_cards):
     for _ in range(number_of_cards):
         card = get_random_card()
         person['cards'].append(card)
-        person['total'] += card
+    calculate_score(person)
 
 
-def print_cards(player, house, final):
+def calculate_score(person):
+    if 11 in person['cards'] and sum(person['cards']) > 21:
+        change_ace_value(person)
+    person['total'] = sum(person['cards'])
+
+
+def print_cards(player_info, house_info, final):
     if final:
-        print(f"\tYour final hand: {player['cards']}, final score: {player['total']}")
-        print(f"\tComputer's final hand: {house['cards']}, final score: {house['total']}")
+        print(f"\tYour final hand: {player_info['cards']}, final score: {player_info['total']}")
+        print(f"\tComputer's final hand: {house_info['cards']}, final score: {house_info['total']}")
     else:
-        print(f"\tYour Cards: {player['cards']}, current score: {player['total']}")
-        print(f"\tComputer's first card: {house['cards'][0]}")
+        print(f"\tYour Cards: {player_info['cards']}, current score: {player_info['total']}")
+        print(f"\tComputer's first card: {house_info['cards'][0]}")
 
 
 def change_ace_value(person):
     person['cards'].remove(11)
     person['cards'].append(1)
     person['total'] -= 10
+
+
+def decide_game(player, house, house_auto_win):
+    if house_auto_win:
+        print("You lose.")
+    elif player['total'] > 21:
+        print("You busted. You lose.")
+    elif house['total'] > 21:
+        print("House busted. You win.")
+    elif player['total'] > house['total']:
+        print("You win.")
+    elif player['total'] == house['total']:
+        print("It's a draw.")
+    else:
+        print("You lose.")
 
 
 keep_playing = True
@@ -74,47 +92,33 @@ while keep_playing:
         'total': 0
     }
 
-    draw_cards(2, player)
-    draw_cards(2, house)
+    draw_cards(player, number_of_cards=2)
+    draw_cards(house, number_of_cards=2)
 
-    print_cards(player, house, False)
+    print_cards(player, house, final=False)
 
     if house['total'] == 21:
+        print_cards(player, house, final=True)
+        decide_game(player, house, house_auto_win=True)
+        continue
+    elif player['total'] == 21:
         player_continue = False
-        house_auto_win = True
     else:
         player_continue = True
-        house_auto_win = False
 
     while player_continue:
         if input("Type 'y' to get another card, type 'n' to pass: ") == 'y':
-            draw_cards(1, player)
-            if player['total'] > 21:
-                if 11 in player['cards']:
-                    change_ace_value(player)
-                else:
-                    player_continue = False
-            print_cards(player, house, False)
+            draw_cards(player, number_of_cards=1)
+            if player['total'] >= 21:
+                player_continue = False
+            print_cards(player, house, final=False)
         else:
             player_continue = False
 
     if player['total'] <= 21:
         while house['total'] < 17:
-            draw_cards(1, house)
-            if house['total'] > 21 and 11 in house['cards']:
-                change_ace_value(house)
+            draw_cards(house, number_of_cards=1)
 
-    print_cards(player, house, True)
+    print_cards(player, house, final=True)
 
-    if house_auto_win:
-        print("You lose.")
-    elif player['total'] > 21:
-        print("You busted. You lose.")
-    elif house['total'] > 21:
-        print("House busted. You win.")
-    elif player['total'] > house['total']:
-        print("You win.")
-    elif player['total'] == house['total']:
-        print("It's a draw.")
-    else:
-        print("You lose.")
+    decide_game(player, house, house_auto_win=False)
