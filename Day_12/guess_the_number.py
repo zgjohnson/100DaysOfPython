@@ -1,6 +1,6 @@
 # Number Guessing Game Objectives:
 from random import randint
-from guess_the_number_art import logo
+from art import logo
 
 # Include an ASCII art logo.
 # Allow the player to submit a guess for a number between 1 and 100.
