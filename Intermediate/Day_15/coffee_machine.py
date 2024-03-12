@@ -49,7 +49,7 @@ def check_resources(drink):
 
 def collect_payment():
     print("Please insert coins: ")
-    quarters = 0.50 * int(input("How many quarters?: ") or 0)
+    quarters = 0.25 * int(input("How many quarters?: ") or 0)
     dimes = 0.10 * int(input("How many dimes?: ") or 0)
     nickles = 0.05 * int(input("How many nickles?: ") or 0)
     pennies = 0.01 * int(input("How many pennies?: ") or 0)
