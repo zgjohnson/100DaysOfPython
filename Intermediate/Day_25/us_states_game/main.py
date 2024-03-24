@@ -18,10 +18,7 @@ while score < 50:
 
     guess = str(screen.textinput(title=f'{score}/50 States Guessed Correctly', prompt='Guess a state!')).title()
     if guess == 'Exit':
-        states_to_learn = []
-        for state in state_df.state.to_list():
-            if state not in states_guessed:
-                states_to_learn.append(state)
+        states_to_learn = [state for state in state_df.state.to_list() if state not in states_guessed]
         pandas.DataFrame(states_to_learn, columns=['State']).to_csv('state_to_learn.csv')
         break
     state = state_df[state_df.state == guess]
