@@ -5,10 +5,11 @@ window.title('First GUI Program!!')
 window.minsize(width=100, height=100)
 window.config(padx=20, pady=20)
 
+
 def calculate():
     miles = float(mile_entry.get())
     km = miles * 1.609344
-    km_value.config(text=f"{km}")
+    km_value.config(text=f"{round(km, 2)}")
 
 
 mile_entry = Entry(width=10, justify='left')
