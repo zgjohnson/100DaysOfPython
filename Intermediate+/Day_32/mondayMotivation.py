@@ -1,5 +1,6 @@
 import datetime as dt
-import smtplib, random
+import random
+import smtplib
 from email.message import EmailMessage
 
 my_email = "100DaysOfPython32@gmail.com"
