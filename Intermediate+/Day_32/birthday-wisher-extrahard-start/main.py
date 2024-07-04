@@ -12,7 +12,7 @@ def get_birthdays():
     now = dt.datetime.now()
     month = now.month
     day = now.day
-    return read_csv("./birthdays.csv").query(f'month == {month} and day == {day}')
+    return read_csv("birthdays.csv").query(f'month == {month} and day == {day}')
 
 
 def get_letter(name):
