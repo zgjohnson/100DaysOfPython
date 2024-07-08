@@ -54,7 +54,7 @@ def send_email():
     message.set_content("Look up to see the iss")
     message["Subject"] = 'International Space Station Overhead'
     message['From'] = MY_EMAIL
-    message['To'] = MY_EMAIL
+    message['To'] = 'zgjohnson94@gmail.com'
 
     with smtplib.SMTP("smtp.gmail.com", 587) as email:
         email.starttls()
