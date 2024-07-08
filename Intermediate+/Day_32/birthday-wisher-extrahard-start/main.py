@@ -3,6 +3,10 @@ import datetime as dt
 from random import randint
 import smtplib
 from email.message import EmailMessage
+from Config import email_config
+
+MY_EMAIL = email_config.MY_EMAIL
+PASSWORD = email_config.PASSWORD
 
 
 # Extra Hard Starting Project #
@@ -29,9 +33,6 @@ def generate_email(to_address, content):
     return email
 
 
-MY_EMAIL = "100DaysOfPython32@gmail.com"
-PASSWORD = "mvrl gxqb jywx ibxk"
-
 # 1. Update the birthdays.csv
 
 # 2. Check if today matches a birthday in the birthdays.csv
@@ -50,5 +51,3 @@ for x in birthdays.index:
         connection.starttls()
         connection.login(user=MY_EMAIL, password=PASSWORD)
         connection.send_message(message)
-
-

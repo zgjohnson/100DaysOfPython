@@ -2,9 +2,10 @@ import datetime as dt
 import random
 import smtplib
 from email.message import EmailMessage
+from Config import email_config
 
-my_email = "100DaysOfPython32@gmail.com"
-password = "mvrl gxqb jywx ibxk"
+my_email = email_config.MY_EMAIL
+password = email_config.PASSWORD
 
 if dt.datetime.now().weekday() == 0:
     with open('quotes.txt') as quote_file:

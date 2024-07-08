@@ -1,8 +1,9 @@
 # import smtplib
 # from email.message import EmailMessage
+# from Config import email_config
 #
-# my_email = "100DaysOfPython32@gmail.com"
-# password = "mvrl gxqb jywx ibxk"
+# my_email = email_config.MY_EMAIL
+# password = email_config.PASSWORD
 #
 # message = EmailMessage()
 # message.set_content('This is the body of my email.')
